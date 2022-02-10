@@ -4,6 +4,7 @@ namespace GitBalocco\KeyValueList;
 
 use GitBalocco\KeyValueList\Contracts\KeyValueListable;
 use GitBalocco\KeyValueList\Traits\DataHolderTrait;
+use Traversable;
 
 /**
  * Class KeyValueList
@@ -16,9 +17,10 @@ abstract class KeyValueList implements KeyValueListable
     /**
      * getIterator
      *
-     * @return \ArrayIterator|\Traversable
+     * @return Traversable
+     * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return new \ArrayIterator($this->getData());
     }
@@ -37,10 +39,11 @@ abstract class KeyValueList implements KeyValueListable
     /**
      * offsetGet
      *
-     * @param mixed $offset
-     * @return string
+     * @param $offset
+     * @return mixed
+     * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         assert(is_string($offset) || is_int($offset));
         if ($this->offsetExists($offset)) {
@@ -56,7 +59,7 @@ abstract class KeyValueList implements KeyValueListable
      * @param mixed $offset
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         assert(is_string($offset) || is_int($offset));
         return array_key_exists($offset, $this->getData());
@@ -93,7 +96,7 @@ abstract class KeyValueList implements KeyValueListable
      * @param mixed $offset
      * @param mixed $value
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         //Do nothing
     }
@@ -103,7 +106,7 @@ abstract class KeyValueList implements KeyValueListable
      *
      * @param mixed $offset
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         //Do nothing
     }
